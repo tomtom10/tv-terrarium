@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-crt-green: #39ff14;
+    --color-crt-amber: #ffb000;
+    --color-crt-glow: rgba(57, 255, 20, 0.25);
+    --color-wood-dark: #22150f;
+    --color-wood-mid: #3d2314;
+    --color-wood-light: #5a341e;
+  }
+}
+
+/* Retro CRT and Glass Effects */
+.crt-screen-curvature {
+  border-radius: 28px;
+  box-shadow: 
+    inset 0 0 80px rgba(0, 0, 0, 0.9),
+    inset 0 0 20px rgba(0, 0, 0, 0.8),
+    0 0 25px rgba(34, 197, 94, 0.15);
+}
+
+.crt-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  );
+  background-size: 100% 4px;
+}
+
+.crt-flicker {
+  animation: crtFlicker 0.15s infinite;
+}
+
+@keyframes crtFlicker {
+  0% { opacity: 0.985; }
+  50% { opacity: 1; }
+  100% { opacity: 0.99; }
+}
+
+/* Static Noise Effect */
+.tv-static {
+  background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 0);
+  background-size: 4px 4px;
+  animation: staticNoise 0.2s steps(4) infinite;
+}
+
+@keyframes staticNoise {
+  0% { background-position: 0 0; }
+  25% { background-position: 2px 3px; }
+  50% { background-position: -2px 1px; }
+  75% { background-position: 3px -2px; }
+  100% { background-position: 0 0; }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #121412;
+}
+::-webkit-scrollbar-thumb {
+  background: #273827;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3c583c;
+}
+
+/* Wood grain texture simulation */
+.woodgrain-cabinet {
+  background: 
+    linear-gradient(90deg, 
+      rgba(44, 24, 16, 0.95) 0%, 
+      rgba(62, 34, 22, 0.95) 20%, 
+      rgba(50, 27, 18, 0.95) 45%, 
+      rgba(70, 39, 25, 0.95) 70%, 
+      rgba(42, 22, 14, 0.95) 100%
+    );
+}
+
+/* Brass metallic gradient */
+.brass-metal {
+  background: linear-gradient(135deg, #e6c27a 0%, #b89345 50%, #876823 100%);
+}
