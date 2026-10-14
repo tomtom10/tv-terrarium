@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { TerrariumProduct, ADD_ONS } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { TerrariumScene, sceneVariantFor } from "./TerrariumScene";
 import {
   ShoppingBag,
   Check,
@@ -76,25 +77,13 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
 
       {/* Visual CRT Monitor Preview Box */}
       <div className="px-5 py-2">
-        <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-[#070e08] border-2 border-[#1c271e] crt-screen-curvature flex flex-col justify-end p-4">
+        <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-[#070e08] border-2 border-[#1c271e] crt-screen-curvature flex flex-col justify-start p-3">
           {/* Subtle Scanlines */}
           <div className="absolute inset-0 crt-scanlines opacity-50 pointer-events-none" />
 
-          {/* Plant Graphic inside preview box */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Artistic stylized terrarium SVG */}
-            <svg className="w-full h-full p-2" viewBox="0 0 200 120" fill="none">
-              <rect x="20" y="20" width="160" height="85" rx="10" fill="#0c1a0f" />
-              {/* Internal foliage */}
-              <ellipse cx="60" cy="85" rx="25" ry="12" fill="#15803d" />
-              <ellipse cx="100" cy="80" rx="35" ry="16" fill="#22c55e" />
-              <ellipse cx="140" cy="85" rx="30" ry="14" fill="#16a34a" />
-              <path d="M100 65 Q90 40 80 30 Q105 45 105 65" fill="#4ade80" />
-              <path d="M110 65 Q130 40 145 35 Q125 50 115 65" fill="#86efac" />
-              {/* Soil strata */}
-              <rect x="20" y="90" width="160" height="6" fill="#291e17" />
-              <rect x="20" y="96" width="160" height="9" fill="#382b21" />
-            </svg>
+          {/* Per-model terrarium preview (compact: fewer elements, no ambient effects) */}
+          <div className="absolute inset-0">
+            <TerrariumScene variant={sceneVariantFor(product.id)} compact />
           </div>
 
           {/* Overlay Dimensions badge */}
@@ -154,7 +143,7 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
                     </div>
                     <span className="truncate max-w-[170px]">{addon.name}</span>
                   </div>
-                  <span className="font-mono text-amber-300 font-semibold">+\${addon.price}</span>
+                  <span className="font-mono text-amber-300 font-semibold">+${addon.price}</span>
                 </button>
               );
             })}
@@ -168,10 +157,10 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
           <div>
             <span className="text-[10px] font-mono uppercase text-stone-400 block">Total Model Price</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-black font-mono text-white">\${currentTotal}</span>
+              <span className="text-2xl font-black font-mono text-white">${currentTotal}</span>
               {product.originalPrice && selectedAddOns.length === 0 && (
                 <span className="text-xs font-mono text-stone-500 line-through">
-                  \${product.originalPrice}
+                  ${product.originalPrice}
                 </span>
               )}
             </div>

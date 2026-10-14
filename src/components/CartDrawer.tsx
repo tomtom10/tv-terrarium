@@ -90,7 +90,7 @@ export function CartDrawer() {
                 <Truck className="w-3.5 h-3.5 text-emerald-400" />
                 {amountToFreeShipping === 0
                   ? "You unlocked FREE Climate-Safe Shipping!"
-                  : `Add \$${amountToFreeShipping} more for Free Shipping`}
+                  : `Add $${amountToFreeShipping} more for Free Shipping`}
               </span>
               <span className="font-bold text-emerald-400">{freeShippingPercent}%</span>
             </div>
@@ -158,7 +158,7 @@ export function CartDrawer() {
                             addon ? (
                               <div key={addon.id} className="flex justify-between">
                                 <span className="truncate">+ {addon.name}</span>
-                                <span className="text-amber-400">+\${addon.price}</span>
+                                <span className="text-amber-400">+${addon.price}</span>
                               </div>
                             ) : null
                           )}
@@ -191,7 +191,7 @@ export function CartDrawer() {
                         </div>
 
                         <span className="font-mono font-bold text-white text-sm">
-                          \${unitPrice * item.quantity}
+                          ${unitPrice * item.quantity}
                         </span>
                       </div>
                     </div>
@@ -235,21 +235,21 @@ export function CartDrawer() {
               <div className="space-y-1.5 text-xs font-mono text-stone-300 pt-2 border-t border-stone-800/80">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>\${subtotal}</span>
+                  <span>${subtotal}</span>
                 </div>
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-emerald-400 font-bold">
                     <span>Broadcast Discount ({promoCode})</span>
-                    <span>-\${discountAmount}</span>
+                    <span>-${discountAmount}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
                   <span>Insulated Climate Shipping</span>
-                  <span>{shipping === 0 ? "FREE" : `\$${shipping}`}</span>
+                  <span>{shipping === 0 ? "FREE" : `$${shipping}`}</span>
                 </div>
                 <div className="flex justify-between text-base font-bold text-white pt-2 border-t border-stone-800">
                   <span>Total</span>
-                  <span className="text-emerald-400 font-mono">\${total} USD</span>
+                  <span className="text-emerald-400 font-mono">${total} USD</span>
                 </div>
               </div>
 

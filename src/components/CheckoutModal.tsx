@@ -261,7 +261,7 @@ export function CheckoutModal() {
               <div className="pt-3 border-t border-stone-800 flex items-center justify-between">
                 <div>
                   <span className="text-[11px] font-mono text-stone-400 block">TOTAL DUE</span>
-                  <span className="text-2xl font-black font-mono text-emerald-400">\${total} USD</span>
+                  <span className="text-2xl font-black font-mono text-emerald-400">${total} USD</span>
                 </div>
 
                 <button
@@ -270,7 +270,7 @@ export function CheckoutModal() {
                   className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs sm:text-sm px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(34,197,94,0.4)] cursor-pointer disabled:opacity-50"
                 >
                   <Lock className="w-4 h-4" />
-                  <span>{isSubmitting ? "Broadcasting Order..." : `Complete Order • \$${total}`}</span>
+                  <span>{isSubmitting ? "Broadcasting Order..." : `Complete Order • $${total}`}</span>
                 </button>
               </div>
             </form>

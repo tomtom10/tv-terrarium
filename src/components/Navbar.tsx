@@ -15,7 +15,7 @@ export function Navbar() {
       <div className="bg-gradient-to-r from-emerald-950 via-[#182a1b] to-emerald-950 py-1.5 px-4 text-center border-b border-emerald-900/30">
         <p className="text-[11px] sm:text-xs font-mono text-emerald-300 flex items-center justify-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>FREE INSULATED CLIMATE SHIPPING ON ORDERS OVER \$150</span>
+          <span>FREE INSULATED CLIMATE SHIPPING ON ORDERS OVER $150</span>
           <span className="hidden md:inline">• USE CODE <strong className="text-white">BROADCAST10</strong> FOR 10% OFF</span>
         </p>
       </div>

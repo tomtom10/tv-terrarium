@@ -164,7 +164,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
                 >
                   <div className="flex items-center justify-between font-bold mb-1">
                     <span className="truncate pr-1">{addon.name}</span>
-                    <span className="text-amber-400 font-mono">+\${addon.price}</span>
+                    <span className="text-amber-400 font-mono">+${addon.price}</span>
                   </div>
                   <p className="text-[11px] text-stone-400 line-clamp-2 leading-tight">
                     {addon.description}
@@ -196,7 +196,7 @@ export function ProductDetailModal({ product, onClose }: ProductDetailModalProps
           <div>
             <span className="text-xs font-mono text-stone-400 block">TOTAL PRICE</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-black font-mono text-white">\${totalPrice}</span>
+              <span className="text-3xl font-black font-mono text-white">${totalPrice}</span>
               <span className="text-xs text-emerald-400 font-mono">
                 {product.stockLeft} units ready for climate dispatch
               </span>

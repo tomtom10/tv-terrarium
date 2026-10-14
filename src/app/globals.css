@@ -84,3 +84,65 @@
 .brass-metal {
   background: linear-gradient(135deg, #e6c27a 0%, #b89345 50%, #876823 100%);
 }
+
+/* ---------- Terrarium scene animations ---------- */
+@keyframes blade-grow {
+  0% { transform: scaleY(0); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes blade-sway {
+  from { transform: rotate(-2.4deg); }
+  to { transform: rotate(2.4deg); }
+}
+
+@keyframes frond-sway {
+  from { transform: rotate(-1.6deg); }
+  to { transform: rotate(1.9deg); }
+}
+
+@keyframes ray-pulse {
+  0%, 100% { opacity: 0.22; }
+  50% { opacity: 0.55; }
+}
+
+@keyframes mist-drift {
+  from { transform: translateX(-45px); opacity: 0.1; }
+  to { transform: translateX(45px); opacity: 0.26; }
+}
+
+@keyframes drip {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.85; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(380px); opacity: 0; }
+}
+
+@keyframes firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  50% { transform: translate(var(--dx, 20px), -60px); opacity: 0.9; }
+  80% { opacity: 0.7; }
+}
+
+/* Old-CRT power-on: a bright line expands, then the picture opens up */
+@keyframes crt-on {
+  0% { transform: scale(0.3, 0.005); filter: brightness(4); opacity: 0; }
+  35% { transform: scale(1, 0.005); filter: brightness(4); opacity: 1; }
+  100% { transform: scale(1, 1); filter: brightness(1); opacity: 1; }
+}
+
+.crt-power-on {
+  animation: crt-on 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

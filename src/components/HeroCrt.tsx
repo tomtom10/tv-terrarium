@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { PRODUCTS, TerrariumProduct } from "@/data/products";
 import { sound } from "@/utils/audio";
 import { useCart } from "@/context/CartContext";
+import { TerrariumScene, sceneVariantFor } from "./TerrariumScene";
 import {
   Volume2,
   VolumeX,
@@ -86,7 +87,7 @@ export function HeroCrt() {
       </div>
 
       {/* THE BIG TV HERO DISPLAY */}
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-6xl mx-auto">
         {/* Vintage Rabbit-Ear Telescoping Antenna on top */}
         <div className="relative flex justify-center -mb-3 z-10">
           <div className="flex items-end gap-16">
@@ -116,7 +117,7 @@ export function HeroCrt() {
           {/* Main TV Panel Grid (Screen on left, Controls on right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 items-center">
             {/* The CRT Screen (8 cols on large) */}
-            <div className="lg:col-span-8 relative">
+            <div className="lg:col-span-8 relative min-w-0">
               {/* Outer Screen Bezel with curved depth */}
               <div className="relative bg-[#0d120e] rounded-3xl p-3 sm:p-5 shadow-[inset_0_10px_30px_rgba(0,0,0,0.95)] border-4 border-[#1f2820]">
                 {/* Curved Glass CRT Screen */}
@@ -141,129 +142,29 @@ export function HeroCrt() {
                     </div>
                   )}
 
-                  {/* Realistic Simulated Terrarium Inside the TV */}
-                  <div className="absolute inset-0 z-0 overflow-hidden flex flex-col justify-end">
-                    {/* Lighting Gradient depending on Mode */}
+                  {/* Animated terrarium scene (plays a CRT power-on once on load) */}
+                  <div className="absolute inset-0 z-0 overflow-hidden crt-power-on">
+                    {/* Keyed so the grass re-grows every time you change the channel */}
+                    <div key={currentProduct.id} className="absolute inset-0">
+                      <TerrariumScene
+                        variant={sceneVariantFor(currentProduct.id)}
+                        lightMode={lightMode}
+                      />
+                    </div>
+
+                    {/* Light-mode colour wash */}
                     <div
                       className={`absolute inset-0 transition-opacity duration-700 pointer-events-none z-10 ${
                         lightMode === "day"
-                          ? "bg-gradient-to-b from-amber-200/20 via-emerald-400/10 to-transparent mix-blend-screen"
+                          ? "bg-gradient-to-b from-amber-200/15 via-transparent to-transparent mix-blend-screen"
                           : lightMode === "grow"
-                          ? "bg-gradient-to-b from-purple-500/25 via-pink-400/15 to-transparent mix-blend-screen"
-                          : "bg-gradient-to-b from-cyan-950/40 via-blue-900/20 to-transparent"
+                          ? "bg-gradient-to-b from-fuchsia-500/20 via-pink-400/10 to-transparent mix-blend-screen"
+                          : "bg-gradient-to-b from-cyan-950/35 via-blue-900/15 to-transparent"
                       }`}
                     />
 
-                    {/* Terrarium Foreground & Plants Vector Graphics */}
-                    <div className="relative w-full h-full flex flex-col justify-end">
-                      {/* Distant background mist & dew drops */}
-                      <div className="absolute inset-0 bg-radial-at-c from-emerald-900/40 via-emerald-950/80 to-[#030904]" />
-
-                      {/* Plant Visual Layer: Rich Organic Terrarium Landscape */}
-                      <svg
-                        className="w-full h-full object-cover transition-transform duration-500"
-                        viewBox="0 0 800 600"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        {/* Internal LED Grow Light Bar at top of TV Tube */}
-                        <rect x="250" y="20" width="300" height="12" rx="6" fill={lightMode === 'grow' ? '#f472b6' : lightMode === 'night' ? '#38bdf8' : '#fef08a'} filter="drop-shadow(0px 0px 18px currentColor)" />
-                        <circle cx="280" cy="26" r="3" fill="#fff" />
-                        <circle cx="340" cy="26" r="3" fill="#fff" />
-                        <circle cx="400" cy="26" r="3" fill="#fff" />
-                        <circle cx="460" cy="26" r="3" fill="#fff" />
-                        <circle cx="520" cy="26" r="3" fill="#fff" />
-
-                        {/* Back Wall Moss Growth */}
-                        <path d="M120 180 Q200 150 280 200 T420 190 T560 210 T700 170 L720 450 L100 450 Z" fill="#13361b" opacity="0.6" />
-                        <path d="M150 230 Q220 210 320 250 T480 220 T620 260 L680 480 L130 480 Z" fill="#194824" opacity="0.8" />
-
-                        {/* Driftwood & Branch Architecture */}
-                        <path d="M220 480 C260 380 340 320 480 310 C520 305 570 320 620 340 L600 370 C560 350 510 340 470 345 C370 360 300 420 270 490 Z" fill="#3b2314" />
-                        <path d="M380 340 C420 280 480 240 540 220 L550 235 C500 255 440 290 405 348 Z" fill="#4a2e1c" />
-
-                        {/* Cascading Tropical Fern Leaves */}
-                        <g opacity="0.95">
-                          {/* Left Lemon Button Fern */}
-                          <path d="M250 420 Q180 360 140 280 Q200 310 260 410" fill="#22c55e" />
-                          <circle cx="150" cy="290" r="14" fill="#16a34a" />
-                          <circle cx="170" cy="315" r="16" fill="#22c55e" />
-                          <circle cx="195" cy="345" r="18" fill="#15803d" />
-                          <circle cx="225" cy="380" r="20" fill="#16a34a" />
-
-                          {/* Center Lush Canopy Ferns */}
-                          <path d="M380 360 Q340 240 320 160 Q365 210 395 350" fill="#4ade80" />
-                          <ellipse cx="325" cy="175" rx="15" ry="30" transform="rotate(-25 325 175)" fill="#22c55e" />
-                          <ellipse cx="340" cy="210" rx="18" ry="35" transform="rotate(-20 340 210)" fill="#4ade80" />
-                          <ellipse cx="360" cy="255" rx="20" ry="40" transform="rotate(-15 360 255)" fill="#16a34a" />
-                          <ellipse cx="375" cy="305" rx="22" ry="45" transform="rotate(-10 375 305)" fill="#15803d" />
-
-                          {/* Right Weeping Delicate Fern fronds */}
-                          <path d="M480 330 Q540 240 620 190 Q580 260 495 340" fill="#86efac" />
-                          <ellipse cx="610" cy="200" rx="14" ry="26" transform="rotate(40 610 200)" fill="#4ade80" />
-                          <ellipse cx="580" cy="230" rx="16" ry="32" transform="rotate(35 580 230)" fill="#22c55e" />
-                          <ellipse cx="545" cy="270" rx="18" ry="38" transform="rotate(30 545 270)" fill="#16a34a" />
-                        </g>
-
-                        {/* Pink Vein Fittonia or Accent Plants for CH 03 */}
-                        {currentProduct.id === "the-80s-portable" && (
-                          <g opacity="0.95">
-                            <ellipse cx="440" cy="400" rx="25" ry="18" fill="#14532d" />
-                            <ellipse cx="440" cy="400" rx="21" ry="14" fill="#166534" />
-                            <path d="M420 400 Q440 390 460 400" stroke="#f472b6" strokeWidth="2" />
-                            <path d="M430 395 L445 405" stroke="#f472b6" strokeWidth="1.5" />
-                            <path d="M450 395 L435 405" stroke="#f472b6" strokeWidth="1.5" />
-
-                            <ellipse cx="485" cy="415" rx="28" ry="20" fill="#14532d" />
-                            <path d="M465 415 Q485 405 505 415" stroke="#f472b6" strokeWidth="2" />
-                            <path d="M475 410 L490 420" stroke="#f472b6" strokeWidth="1.5" />
-                          </g>
-                        )}
-
-                        {/* Miniature Bonsai / Quartz for CH 04 */}
-                        {currentProduct.id === "the-micro-monitor" && (
-                          <g>
-                            <polygon points="460,420 475,370 490,420" fill="#f8fafc" opacity="0.9" />
-                            <polygon points="485,430 495,385 510,430" fill="#e2e8f0" opacity="0.85" />
-                          </g>
-                        )}
-
-                        {/* Cushion Moss Hills (Mounds in foreground) */}
-                        <ellipse cx="200" cy="470" rx="90" ry="40" fill="#15803d" />
-                        <ellipse cx="200" cy="460" rx="75" ry="32" fill="#22c55e" />
-                        <ellipse cx="360" cy="465" rx="110" ry="45" fill="#166534" />
-                        <ellipse cx="360" cy="455" rx="95" ry="35" fill="#16a34a" />
-                        <ellipse cx="540" cy="470" rx="120" ry="45" fill="#15803d" />
-                        <ellipse cx="540" cy="458" rx="105" ry="35" fill="#22c55e" />
-                        <ellipse cx="680" cy="480" rx="90" ry="40" fill="#14532d" />
-
-                        {/* Substrate Soil Strata Layers (Bottom visible through glass) */}
-                        <rect x="0" y="490" width="800" height="35" fill="#261b15" /> {/* Peat moss / organic layer */}
-                        <rect x="0" y="525" width="800" height="20" fill="#171717" /> {/* Activated Charcoal */}
-                        <rect x="0" y="545" width="800" height="55" fill="#382d24" /> {/* Volcanic lava rock drainage */}
-
-                        {/* Little drainage pebbles */}
-                        <circle cx="50" cy="565" r="10" fill="#574838" />
-                        <circle cx="120" cy="570" r="12" fill="#4d3f32" />
-                        <circle cx="210" cy="562" r="9" fill="#5a4d3f" />
-                        <circle cx="340" cy="568" r="11" fill="#4a3e31" />
-                        <circle cx="490" cy="564" r="10" fill="#5c4e3f" />
-                        <circle cx="630" cy="572" r="12" fill="#473b2e" />
-                        <circle cx="720" cy="565" r="9" fill="#58493a" />
-
-                        {/* Realistic Dew & Condensation Drops on the Glass */}
-                        <g opacity="0.6">
-                          <ellipse cx="180" cy="220" rx="3" ry="5" fill="#fff" />
-                          <circle cx="180" cy="232" r="2" fill="#fff" opacity="0.8" />
-                          <ellipse cx="440" cy="180" rx="4" ry="7" fill="#fff" />
-                          <circle cx="440" cy="195" r="2" fill="#fff" opacity="0.7" />
-                          <ellipse cx="620" cy="280" rx="3" ry="5" fill="#fff" />
-                          <circle cx="622" cy="292" r="1.5" fill="#fff" />
-                          <circle cx="310" cy="300" r="2" fill="#fff" />
-                          <circle cx="510" cy="240" r="2.5" fill="#fff" />
-                        </g>
-                      </svg>
-                    </div>
+                    {/* Tube vignette */}
+                    <div className="absolute inset-0 pointer-events-none z-10 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
                   </div>
 
                   {/* Channel On-Screen Display (OSD) in Top Left */}
@@ -291,31 +192,23 @@ export function HeroCrt() {
                   {/* Glass Reflection Highlight sweep */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none z-10" />
 
-                  {/* Bottom OSD Bar: Tagline & Closed Circuit Guarantee */}
-                  <div className="absolute bottom-3 inset-x-3 z-20 bg-black/80 backdrop-blur-md rounded-xl p-3 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <Droplets className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <p className="text-xs text-stone-300 font-mono">
-                        <strong className="text-emerald-400">100% Closed Loop:</strong> Natural rainfall cycle inside the glass.
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono text-amber-300 font-semibold">\${currentProduct.price} USD</span>
-                      <button
-                        onClick={() => addItem(currentProduct)}
-                        className="bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(34,197,94,0.4)] cursor-pointer"
-                      >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                        <span>Order Now</span>
-                      </button>
-                    </div>
-                  </div>
+                </div>
+
+                {/* Caption strip under the glass (keeps the soil layers visible) */}
+                <div className="mt-3 flex items-center justify-between gap-3 px-1 text-[11px] sm:text-xs font-mono text-stone-300">
+                  <span className="flex items-center gap-2 min-w-0">
+                    <Droplets className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="truncate">
+                      <strong className="text-emerald-400">Closed loop:</strong> it rains inside the glass.
+                    </span>
+                  </span>
+                  <span className="text-amber-300 font-semibold shrink-0">${currentProduct.price} USD</span>
                 </div>
               </div>
             </div>
 
             {/* The Right TV Control Panel (Rotary Knobs, Channel Selector, Speakers) */}
-            <div className="lg:col-span-4 flex flex-col gap-5 bg-gradient-to-b from-[#2a170f] to-[#1c0f0a] p-5 rounded-2xl border-2 border-amber-950/80 shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)]">
+            <div className="lg:col-span-4 min-w-0 flex flex-col gap-5 bg-gradient-to-b from-[#2a170f] to-[#1c0f0a] p-5 rounded-2xl border-2 border-amber-950/80 shadow-[inset_0_2px_15px_rgba(0,0,0,0.8)]">
               {/* Channel Selector Rotary Dial */}
               <div className="bg-black/60 rounded-xl p-4 border border-amber-900/40 text-center">
                 <div className="flex items-center justify-between mb-2">
@@ -388,10 +281,10 @@ export function HeroCrt() {
                 <div className="mt-3 pt-2.5 border-t border-stone-800 flex items-center justify-between">
                   <div>
                     <span className="text-[11px] font-mono text-stone-400 block">PRICE</span>
-                    <span className="text-lg font-bold text-white font-mono">\${currentProduct.price}</span>
+                    <span className="text-lg font-bold text-white font-mono">${currentProduct.price}</span>
                     {currentProduct.originalPrice && (
                       <span className="text-xs text-stone-500 line-through ml-2 font-mono">
-                        \${currentProduct.originalPrice}
+                        ${currentProduct.originalPrice}
                       </span>
                     )}
                   </div>
